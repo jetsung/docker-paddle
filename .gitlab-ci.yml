@@ -8,19 +8,15 @@ build:
     - name: docker:dind
   artifacts:
     expire_in: 1 d
-  variables:
-    NAMESPACE: devcto
-    TAG: "0.1"
   rules:
     - changes:
         - Dockerfile
       when: manual
       allow_failure: false
   before_script:
-    - echo "$DOCKERHUB_TOKEN" | docker login "${DOCKER_REGISTRY}" -u "$DOCKERHUB_USERNAME" --password-stdin
+    - echo "$CI_REGISTRY_PASSWORD" | docker login "${CI_REGISTRY}" -u "$CI_REGISTRY_USER" --password-stdin
   script:
-    - docker build --build-arg PADDLE_VERSION="${PADDLE_VERSION}" \
-      --build-arg PADDLEOCR_VERSION="${PADDLEOCR_VERSION}" \
-      -t ${NAMESPACE}/paddle:${TAG} \
-      -f ./Dockerfile . 
-    - docker push ${NAMESPACE}/paddle:${TAG}
+    - docker build --build-arg PADDLE_VERSION="$PADDLE_VERSION" 
+      --build-arg PADDLEOCR_VERSION="$PADDLEOCR_VERSION" 
+      -t $CI_REGISTRY/$PROJECT_NAME:$BUILD_TAG .
+    - docker push $CI_REGISTRY/$PROJECT_NAME:$BUILD_TAG
