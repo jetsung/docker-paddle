@@ -3,11 +3,6 @@ LABEL maintainer="Jetsung Chan<jetsungchan@gmail.com>"
 ARG PADDLE_VERSION=2.3.1
 ARG PADDLEOCR_VERSION=2.0.1
 
-VOLUME [ "/app" ]
-WORKDIR /paddle
-
-COPY mirror.sh /app
-
 RUN set -eux \
       ; \
     apt-get update -y ; \
@@ -27,7 +22,8 @@ RUN python -m venv ~/.paddle_env ; \
     pip install pytest-runner ; \
     pip install paddlespeech
 
-RUN printf '#!/usr/bin/env bash \n\n \
+RUN mkdir /app ; \
+    printf '#!/usr/bin/env bash \n\n \
 if [ -z "${1}" ] ; then \n \
   /bin/bash \n \
 elif [ "${1}" = "-D" ] ; then \n \
@@ -37,6 +33,11 @@ else \n \
 fi \n'\
 > /app/entry.sh ; \
 chmod +x /app/entry.sh
+
+VOLUME [ "/app" ]
+WORKDIR /paddle
+
+COPY mirror.sh ~/
 
 ENTRYPOINT [ "/app/entry.sh" ]
 CMD [ "-D" ]
