@@ -12,6 +12,8 @@ RUN set -eux \
     curl -fSL https://bootstrap.pypa.io/get-pip.py | python ; \ 
     pip install paddlepaddle==${PADDLE_VERSION}; \
     pip install "paddleocr>=${PADDLEOCR_VERSION}" ; \
+    pip install pytest-runner ; \
+    pip install paddlespeech ; \
     echo ". ~/.paddle_env/bin/activate" >> ~/.bashrc ; \
     apt-get remove curl -y ; \
     apt-get autoremove -y ; \
@@ -21,4 +23,4 @@ RUN set -eux \
     find /var/log -type f -delete
 
 WORKDIR /paddle
-CMD /bin/bash -c "while true; do echo paddle; sleep 360; done"
+CMD /bin/bash -c "while true; do echo; sleep 360; done"

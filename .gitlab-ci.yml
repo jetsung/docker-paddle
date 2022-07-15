@@ -19,4 +19,5 @@ build:
     - docker build --build-arg PADDLE_VERSION="$PADDLE_VERSION" 
       --build-arg PADDLEOCR_VERSION="$PADDLEOCR_VERSION" 
       -t $CI_REGISTRY/$PROJECT_NAME:$BUILD_TAG .
-    - docker push $CI_REGISTRY/$PROJECT_NAME:$BUILD_TAG
+    - |
+      [ $DOCKER_PUSH = 'true' ] && docker push $CI_REGISTRY/$PROJECT_NAME:$BUILD_TAG

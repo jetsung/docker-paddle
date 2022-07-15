@@ -2,10 +2,11 @@
 PaddlePaddle 镜像   
 - PaddlePaddle 官网：https://www.paddlepaddle.org.cn/
 - PaddleOCR 仓库：https://github.com/PaddlePaddle/PaddleOCR
+- PaddleSpeech 仓库：https://github.com/PaddlePaddle/PaddleSpeech
 
 ## 环境
 - 基础镜像：`debian:11.4`
-- 内置程序包：`paddle, paddleocr`
+- 内置程序包：`paddle, paddleocr, paddlespeech`
 
 ## 产物镜像
 ```bash
@@ -21,6 +22,16 @@ registry.cn-guangzhou.aliyuncs.com/devcto/paddle:0.1
 ```bash
 # 检测+方向分类器+识别全流程：--use_angle_cls true 设置使用方向分类器识别180度旋转文字，--use_gpu false 设置不使用GPU
 paddleocr --image_dir ./imgs/11.jpg --use_angle_cls true --use_gpu false
+```
+
+## PaddleSpeech 教程
+- 
+```bash
+# 文字转语音，生成 wav 文件：https://github.com/PaddlePaddle/PaddleSpeech/issues/1620
+paddlespeech tts --am fastspeech2_aishell3 --voc pwgan_aishell3 --input "你好，欢迎使用百度飞桨深度学习框架！" --spk_id 167
+
+# 文字转语音：英文
+paddlespeech tts --am fastspeech2_ljspeech --voc pwgan_ljspeech --lang en --input "hello world"
 ```
 
 ## 注意
