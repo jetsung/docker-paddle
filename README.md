@@ -7,6 +7,15 @@ PaddlePaddle 镜像
 - 基础镜像：`debian:11.4`
 - 内置程序包：`paddle, paddleocr`
 
+## 产物镜像
+```bash
+# Jihulab：https://jihulab.com/jetsung/docker-paddle/container_registry/
+registry.jihulab.com/jetsung/docker-paddle:0.1
+
+# Aliyun
+registry.cn-guangzhou.aliyuncs.com/devcto/paddle:0.1
+```
+
 ## PaddleOCR 教程
 - https://github.com/PaddlePaddle/PaddleOCR/blob/release/2.5/doc/doc_ch/quickstart.md
 ```bash
